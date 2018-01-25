@@ -36,6 +36,7 @@ describe("Input valida rut", () => {
 
     $("#testito").val("16749892-2");
 
+
     it("Debe no mostrar doge si rut es válido", () => {
         chai.assert.notExists($("#errorDoge"));
     })
