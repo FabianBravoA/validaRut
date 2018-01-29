@@ -3,7 +3,8 @@ const RUT = require('./rut');
 
 function validarInput(idInput) {
     let theInput = $(`#${idInput}`);
-    theInput.change(() => {
+
+    theInput.change((ev) => {
         if (!validar(theInput.val)) {
             putErrorImg(theInput);
         } else {
