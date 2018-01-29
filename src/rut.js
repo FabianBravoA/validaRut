@@ -1,21 +1,19 @@
 const RUT = {};
 
-/*callback es una función que tiene como parámetro
- el resultado de validar rut*/
-RUT.validaRut = function(rutCompleto, callback) {
-    /*callback es el parámetro que recibe la función que el usuario
-    de validaRur ingresa para poder recibir el resultado*/
-    if (!/^[0-9]+[-|‐]{1}[0-9kK]{1}$/.test(rutCompleto)) {
-        /*Para retornar el valor, nosotros hacemos uso del callback
-        es a traváes del parámetro que le respondemos*/
-        callback(false);
-        return;
-    }
-    var tmp = rutCompleto.split('-');
-    var digv = tmp[1];
-    var rut = tmp[0];
-    if (digv == 'K') digv = 'k';
-    callback(RUT.dv(rut) == digv);
+RUT.validaRut = function(rutCompleto) {
+    let promise = new Promise((resolve, reject) => {
+        if (!/^[0-9]+[-|‐]{1}[0-9kK]{1}$/.test(rutCompleto)) {
+            reject(new Error("You fool, that's not a valid RUT"));
+            return;
+        }
+        var tmp = rutCompleto.split('-');
+        var digv = tmp[1];
+        var rut = tmp[0];
+        if (digv == 'K') digv = 'k';
+        resolve(RUT.dv(rut) == digv);
+    });
+
+    return promise;
 };
 RUT.dv = function(T) {
     var M = 0,
